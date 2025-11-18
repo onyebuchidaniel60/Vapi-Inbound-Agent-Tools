@@ -194,7 +194,3 @@ The workflow expects the Vapi Tool payload to include the message history artifa
 ## 📄 License
 
 MIT
-
-## 📄 License
-
-MIT
