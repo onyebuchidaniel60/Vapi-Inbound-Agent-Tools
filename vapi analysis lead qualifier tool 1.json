@@ -1,0 +1,385 @@
+{
+  "name": "vapi analysis lead qualifier tool 1",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "14149a31-46c3-46a5-ba62-868a595c5856",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        192,
+        0
+      ],
+      "id": "32dbc81f-66a9-4b6b-9f8b-9cf38de16ccb",
+      "name": "Webhook",
+      "webhookId": "14149a31-46c3-46a5-ba62-868a595c5856"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        576,
+        176
+      ],
+      "id": "9c17729d-85a2-4714-b658-6d3c28cd5953",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "LAEkktW2n0uh09hf",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "18K3A_xkAziUWP39Y6S9RFGvxtP_v-IQnPzLwc-h1lTQ",
+          "mode": "list",
+          "cachedResultName": "Lead data all",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18K3A_xkAziUWP39Y6S9RFGvxtP_v-IQnPzLwc-h1lTQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1965120127,
+          "mode": "list",
+          "cachedResultName": "lead qualification data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18K3A_xkAziUWP39Y6S9RFGvxtP_v-IQnPzLwc-h1lTQ/edit#gid=1965120127"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "name": "={{ $('Webhook').item.json.body.message.analysis.structuredData.name }}",
+            "phone number": "={{ $('Webhook').item.json.body.message.analysis.structuredData['phone number'] }}",
+            "qualified": "={{ $json.qualified }}",
+            "reason": "={{ $json.reason }}",
+            "next steps": "={{ $json['next steps'] }}",
+            "interest": "={{ $json.interest }}",
+            "budget_mentioned": "={{ $json.budget_mentioned }}",
+            "timeline": "={{ $json.timeline }}",
+            "objections": "={{ $json.objections }}",
+            "gender": "={{ $('Webhook').item.json.body.message.analysis.structuredData.gender }}"
+          },
+          "matchingColumns": [
+            "name"
+          ],
+          "schema": [
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "gender",
+              "displayName": "gender",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "phone number",
+              "displayName": "phone number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "qualified",
+              "displayName": "qualified",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "reason",
+              "displayName": "reason",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "next steps",
+              "displayName": "next steps",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "interest",
+              "displayName": "interest",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "budget_mentioned",
+              "displayName": "budget_mentioned",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "timeline",
+              "displayName": "timeline",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "objections",
+              "displayName": "objections",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1152,
+        -16
+      ],
+      "id": "00d9c353-9567-44bf-bd3c-82daa60c24af",
+      "name": "Update Lead",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "6Sv61EkSWo2WVxaS",
+          "name": "Google Sheets account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a580bdd0-f276-41a4-bda2-15f3af237b95",
+              "name": "qualified",
+              "value": "={{$json[\"output\"].match(/\"qualified\":\\s*\"([^\"]+)\"/)[1]}}",
+              "type": "string"
+            },
+            {
+              "id": "6015f110-6f7c-467d-a7f4-8ddb066fadd0",
+              "name": "reason",
+              "value": "={{$json[\"output\"].match(/\"reason\":\\s*\"([^\"]+)\"/)[1]}}",
+              "type": "string"
+            },
+            {
+              "id": "4e131fb0-5fa5-4d48-8390-023c94ae4602",
+              "name": "next steps",
+              "value": "={{$json[\"output\"].match(/\"next_steps\":\\s*\\[([\\s\\S]*?)\\]/)[1]}}",
+              "type": "string"
+            },
+            {
+              "id": "5ee0bd32-fa7a-4891-b3d6-782ef871673e",
+              "name": "interest",
+              "value": "={{$json[\"output\"].match(/\"interest\":\\s*\"([^\"]+)\"/)[1]}}",
+              "type": "string"
+            },
+            {
+              "id": "645fa7c4-fd46-4e48-9177-d8440048ff9d",
+              "name": "budget_mentioned",
+              "value": "={{$json[\"output\"].match(/\"budget_mentioned\":\\s*\"([^\"]+)\"/)[1]}}",
+              "type": "string"
+            },
+            {
+              "id": "f0d57d8b-62f1-4011-b767-04c928374faa",
+              "name": "timeline",
+              "value": "={{$json[\"output\"].match(/\"timeline\":\\s*\"([^\"]+)\"/)[1]}}",
+              "type": "string"
+            },
+            {
+              "id": "51c653f5-b1b2-4e90-9910-44fc72cdab79",
+              "name": "objections",
+              "value": "={{$json[\"output\"].match(/\"objections\":\\s*\\[([\\s\\S]*?)\\]/)[1]}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        976,
+        -16
+      ],
+      "id": "fe9685e4-58f8-4420-bd9d-b92da31c2fb1",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "0fc514f3-fe12-43cd-ad54-1042ccc4858a",
+              "leftValue": "={{ $json.body.message.analysis.summary }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "8bffcbf2-7951-4ef9-b07f-62d24ad3173e",
+              "leftValue": "={{ $json.body.message.analysis.summary }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        400,
+        0
+      ],
+      "id": "296ccee2-de1c-4159-8323-fb46d17518e7",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Here is a summary of a recent call with a lead:  \n“{{ $json.body.message.analysis.summary }}”\n\nPlease analyze this call and determine:  \n1. Whether the lead is **qualified**, **not qualified**, or needs **follow-up**.  \n2. Why you made that decision.  \n3. What the next steps should be.  \n4. Identify key points from the call: interest level, budget, timeline, objections.\n\n",
+        "options": {
+          "systemMessage": "You are a lead-qualification analyst agent. Your job is to **analyze a summary or transcript of a call** (provided below) and decide whether the lead is qualified, unqualified, or needs follow-up.\n\nHere are the inputs you will receive:\n- `call_summary`: A summary of the call (or full transcript) with what the lead said.  \n- (Optionally) `lead_info`: Information about the lead such as name, company, or any notes collected prior to the call.\n\nYour output should be a **JSON object** that follows this schema:\n\n```json\n{\n  \"qualified\": \"yes\" | \"no\" | \"follow_up\",  \n  \"reason\": \"string (why you made this qualification decision)\",  \n  \"next_steps\": [\"array\", \"of\", \"recommended\", \"actions\"],  \n  \"key_points\": {\n    \"interest\": \"string (evidence of interest or lack of it)\",  \n    \"budget_mentioned\": \"yes / no\",  \n    \"timeline\": \"string (if any timeline was discussed)\",  \n    \"objections\": [\"list\", \"of\", \"objections\", \"raised by the lead\"]  \n  }\n}\nRules & guidance:\n\nBe realistic and conservative: Only mark \"qualified\": \"yes\" if there is clear interest, budget, or timeline discussed in the call.\n\nIf you’re not sure, lean toward \"follow_up\", and recommend next-steps like “Schedule a demo,” “Send pricing,” or “Send product documentation.”\n\nIn the reason field, explain your decision clearly but concisely (1–2 sentences).\n\nIn next_steps, suggest concrete actions. Use verbs like “Call”, “Email”, “Send”, “Schedule”.\n\nIn key_points:\n\ninterest: Summarize how engaged the lead was (e.g., “asked many technical questions” or “seemed hesitant”)\n\nbudget_mentioned: detect if the lead mentioned money, cost, or anything that signals affordability or money concern\n\ntimeline: pick out any timing cues (e.g., “wants to make a decision in 3 months”)\n\nobjections: list any concerns or objections raised (price, time, product fit, competitor)\n\nAlways output valid JSON only, without extra commentary.\nBegin your analysis now."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        624,
+        -16
+      ],
+      "id": "06fa6b51-316b-44f8-bdcb-ca5fa7f1cc5f",
+      "name": "lead qualifier agent"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "lead qualifier agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Update Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "lead qualifier agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "lead qualifier agent": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1fcb1537-66c7-4c2e-a247-90da6284c385",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "99d3d0b58121e0db505455c8baa12ef29cc6a6ca4e101cf705c0811ae247979f"
+  },
+  "id": "INhWyYRES9IIwAl9",
+  "tags": []
+}
